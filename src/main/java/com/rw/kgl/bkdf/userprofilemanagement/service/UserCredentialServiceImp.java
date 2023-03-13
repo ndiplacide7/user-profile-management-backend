@@ -6,26 +6,42 @@ import com.rw.kgl.bkdf.userprofilemanagement.exception.domain.UserNotFoundExcept
 import com.rw.kgl.bkdf.userprofilemanagement.exception.domain.UsernameExistException;
 import com.rw.kgl.bkdf.userprofilemanagement.repository.UserCredentialRepository;
 import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.UUID;
 
 @Service
 @Transactional
-public class UserCredentialServiceImp implements UserCredentialService{
+public class UserCredentialServiceImp implements UserCredentialService {
 
-    UserCredentialRepository userCredentialRepository;
+  UserCredentialRepository userCredentialRepository;
 
-    @Override
-    public UserCredential createUserProfile(String firstName, String lastName, String username, String email) throws UserNotFoundException, UsernameExistException {
-        return null;
-    }
+  @Override
+  public UserCredential createUserCredential(String username, String password)
+      throws UserNotFoundException, UsernameExistException {
+    // Logic to check different things before creating user credential
+    UserCredential newUserCredential = new UserCredential();
+    newUserCredential.setUsername(username);
+    newUserCredential.setPassword(generatePassword());
+    newUserCredential.setCreatedDate(new Date());
+    newUserCredential.setUserId(
+        UUID.randomUUID()); // Here we can improve this logic to generate userId
+    userCredentialRepository.save(newUserCredential);
+    return newUserCredential;
+  }
 
-    @Override
-    public void resetPassword(String email) throws EmailNotFoundException {
+  @Override
+  public void resetPassword(String email) throws EmailNotFoundException {}
 
-    }
+  @Override
+  public UserCredential findUserByUsername(String username) {
+    return userCredentialRepository.findUserByUsername(username);
+  }
 
-    @Override
-    public UserCredential findUserByUsername(String username) {
-        return userCredentialRepository.findUserByUsername(username);
-    }
+  // Helper methods
+  private String generatePassword() {
+    return RandomStringUtils.randomAlphanumeric(15);
+  }
 }

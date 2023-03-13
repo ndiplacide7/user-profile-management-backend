@@ -7,7 +7,7 @@ import com.rw.kgl.bkdf.userprofilemanagement.exception.domain.UsernameExistExcep
 
 public interface UserCredentialService {
 
-    UserCredential createUserProfile(String firstName, String lastName, String username, String email)
+    UserCredential createUserCredential(String username, String password)
             throws UserNotFoundException, UsernameExistException;
 
     void resetPassword(String email) throws EmailNotFoundException;
