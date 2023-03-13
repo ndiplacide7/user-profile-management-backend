@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
 
@@ -18,7 +19,7 @@ public interface UserService {
 
   List<User> getUsers();
 
-  User findUserById(Long id);
+  User findUserById(UUID id);
 
   void deleteUser(String username) throws IOException;
 
