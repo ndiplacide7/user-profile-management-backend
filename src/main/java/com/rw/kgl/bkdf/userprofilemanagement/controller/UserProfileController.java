@@ -63,7 +63,7 @@ public class UserProfileController extends ExceptionHandling {
    * @throws EmailExistException
    * @throws IOException
    */
-  @PostMapping("/edit_user_profile")
+  @PutMapping("/edit_user_profile")
   public ResponseEntity<User> update(
       @RequestParam("currentUsername") String currentUsername,
       @RequestParam("firstName") String firstName,
