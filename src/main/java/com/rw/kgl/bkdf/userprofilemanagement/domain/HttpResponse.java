@@ -15,7 +15,7 @@ public class HttpResponse {
     private int httpStatusCode; // 200,201,404,500 etc..
     private HttpStatus httpStatus; //OK , CREATED, etc....
     private String reason; //HttpStatus.Series.INFORMATIONAL ,HttpStatus.Series.SUCCESSFUL , etc....
-    private String message; // Developer's custom message
+    private String message; // my customs' message as a Developer
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "MM-dd-yyyy hh:mm:ss",timezone = "Africa/Harare")
     private Date timeStamp;
 }
