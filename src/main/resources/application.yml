@@ -1,0 +1,27 @@
+jwt:
+  secret: '5OOHbxz1gpolY4JIv88H'
+
+server:
+  port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/placide
+    password: postgres
+    username: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  #resources:
+  web:
+    resources:
+      add-mappings: false
+
