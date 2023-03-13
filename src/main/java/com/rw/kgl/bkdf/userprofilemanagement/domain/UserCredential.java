@@ -27,4 +27,6 @@ public class UserCredential {
   private Date createdDate;
   private Date lastChangeDate;
 
+  public UserCredential(String testuser, String testpassword) {
+  }
 }
