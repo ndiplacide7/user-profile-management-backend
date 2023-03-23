@@ -19,9 +19,9 @@ public interface UserService {
 
   List<User> getUsers();
 
-  User findUserById(UUID id);
+  User findUserById(Long id);
 
-  void deleteUser(String username) throws IOException;
+  void deleteUser(String username) throws IOException, UserNotFoundException;
 
 
 

@@ -35,6 +35,7 @@ public class UserCredentialController {
   @PostMapping("/create_user_credential")
   public ResponseEntity<UserCredential> register(@RequestBody UserCredential userCredential)
       throws UserNotFoundException, UsernameExistException {
+    System.err.println("@@@@@@@@@@@@@@@"+userCredential);
     UserCredential newUser =
         userCredentialService.createUserCredential(
             userCredential.getUsername(), userCredential.getPassword());

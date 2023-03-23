@@ -7,6 +7,9 @@ import com.rw.kgl.bkdf.userprofilemanagement.exception.domain.UsernameExistExcep
 import com.rw.kgl.bkdf.userprofilemanagement.repository.UserCredentialRepository;
 import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,7 +18,9 @@ import java.util.UUID;
 @Service
 @Transactional
 public class UserCredentialServiceImp implements UserCredentialService {
+  Logger LOGGER = LoggerFactory.getLogger(getClass());
 
+  @Autowired
   UserCredentialRepository userCredentialRepository;
 
   @Override
@@ -28,6 +33,7 @@ public class UserCredentialServiceImp implements UserCredentialService {
     newUserCredential.setCreatedDate(new Date());
     newUserCredential.setUserId(
         UUID.randomUUID()); // Here we can improve this logic to generate userId
+    LOGGER.info("BEFORE SAVE............."+newUserCredential);
     userCredentialRepository.save(newUserCredential);
     return newUserCredential;
   }

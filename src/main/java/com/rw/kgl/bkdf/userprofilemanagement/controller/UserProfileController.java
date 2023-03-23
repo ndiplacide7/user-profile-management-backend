@@ -100,13 +100,19 @@ public class UserProfileController extends ExceptionHandling {
     return new ResponseEntity<>(users, OK);
   }
 
+  /**
+   * -------------API to Get a user profile using user Id
+   * @param userId
+   * @return
+   */
   @GetMapping("/find/{userId}")
-  public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
+  public ResponseEntity<User> getUser(@PathVariable("userId") Long userId) {
 
-    String uuidString = userId;
-
-    UUID uuidUserId = UUID.fromString(uuidString);
-    User user = userService.findUserById(uuidUserId);
+//    String uuidString = userId;
+//
+//    UUID uuidUserId = UUID.fromString(uuidString);
+//    User user = userService.findUserById(uuidUserId);
+    User user = userService.findUserById( userId);
     return new ResponseEntity<>(user, OK);
   }
 
@@ -120,7 +126,7 @@ public class UserProfileController extends ExceptionHandling {
   @DeleteMapping("/delete/{username}")
   @PreAuthorize("hasAnyAuthority('user:delete')")
   public ResponseEntity<HttpResponse> deleteUser(@PathVariable("username") String username)
-      throws IOException {
+          throws IOException, UserNotFoundException {
     userService.deleteUser(username);
     return response(OK, "USER DELETED SUCCESSFULLY");
   }

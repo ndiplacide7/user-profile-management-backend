@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     user.setUsername(username);
     user.setEmail(email);
     user.setJoinDate(new Date());
-    user.setPassword(encodePassword(password));
+    //    user.setPassword(encodePassword(password));
     user.setActive(true);
     user.setNotLocked(true);
     user.setRole(ROLE_USER.name());
@@ -119,15 +119,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     return userRepository.findAll();
   }
 
-
   @Override
-  public User findUserById(UUID id) {
+  public User findUserById(Long id) {
     return userRepository.findUserById(id);
   }
 
   @Override
-  public void deleteUser(String username) throws IOException {
+  public void deleteUser(String username) throws IOException, UserNotFoundException {
     User user = userRepository.findUserByUsername(username);
+    if (user == null) {
+      throw new UserNotFoundException("No user found with this username : " + username);
+    }
+
+    // Hano ndahashyira Logic yo kubanza gukora backup mbere yo gusiba iyi record
+
     Path userFolder = Paths.get("folder" + user.getUsername()).toAbsolutePath().normalize();
     FileUtils.deleteDirectory(new File(userFolder.toString()));
     userRepository.deleteById(user.getId());
@@ -135,12 +140,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
   @Override
   public User findUserByUsername(String username) {
-    return null;
+    return userRepository.findUserByUsername(username);
   }
 
   @Override
   public User findUserByEmail(String email) {
-    return null;
+    return userRepository.findUserByEmail(email);
   }
 
   // Helper methods
